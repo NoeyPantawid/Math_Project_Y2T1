@@ -1,0 +1,89 @@
+โจทย์เรา
+start : 0
+stop : 2
+n : 0
+y[n] : -4.3
+h : 0.2
+y' : exp(-2*(x**2))-(4*x*y)
+exact : x * exp(-2*x**2) - 4.3 * exp(-2*x**2)
+ผลลัพธ์ ตรงกับที่คำนวณมือเป๊ะจัดๆ
+
+โจทย์รุ่นพี่ 1 (รหัสคนแรก 62120013)
+start : 1
+stop : 10
+n : 1
+y[n] : 0
+h : 0.2
+y' : 8*x-(2/x)*y
+exact : 2*(x**2)-2*(x**-2)
+ผลลัพธ์ 
+Euler ตรง
+Improved-Euler ตรง
+Runge – kutta คลาดเคลื่อนเล็กน้อย
+Runge - Kutta Fehlberg คลาดเคลื่อนน้อยมาก
+
+โจทย์รุ่นพี่ 2 (รหัสคนแรก 62120010)
+start : 1
+stop : 10
+n : 1
+y[n] : 0
+h : 0.2
+y' : exp(-2*x)-((2*x+1)/x)*y
+exact : (x*exp(-2*x))/2 + (6.91*exp(-2*x))/x
+ผลลัพธ์ 
+Euler ตรง
+Improved-Euler ตรง
+Runge – kutta ตรง
+Runge - Kutta Fehlberg คลาดเคลื่อนเล็กน้อย
+
+โจทย์รุ่นพี่ 3 (รหัสคนแรก 61120010)
+start : 0
+stop : 5
+n : 0
+y[n] : 1
+h : 0.5
+y' : (-2*(x**3))+(12*(x**2))-(20*x)+10
+exact : (-0.5*(x**4))+(4*(x**3))-(10*(x**2))+(10*x)+1
+ผลลัพธ์ 
+Euler ตรง
+Improved-Euler ตรง
+Runge – kutta ตรง
+Runge - Kutta Fehlberg ตรง
+
+โจทย์รุ่นพี่ 4 (รหัสคนแรก 6120016)
+start : 1
+stop : 3
+n : 1
+y[n] : 0
+h : 0.2
+y' : ( 1 + (y/x) + (y**2/x**2) )
+exact : x*tan(ln(x))
+ผลลัพธ์ 
+Euler ตรง
+Improved-Euler ตรง
+Runge – kutta ตรง
+Runge - Kutta Fehlberg ตรง
+
+โจทย์รุ่นพี่ 5 (รหัสคนแรก 61120004)
+start : 1
+stop : 3
+n : 1
+y[n] : 0
+h : 0.2
+y' : x*(1-y)
+exact : -exp((-(x**2)-1)/2)+1
+ผลลัพธ์
+Euler ตรง
+Improved-Euler คลาดเคลื่อน
+Runge – kutta คลาดเคลื่อน
+Runge - Kutta Fehlberg คลาดเคลื่อน
+
+โจทย์เพื่อน 1 (BAM)
+start : 0
+stop : 0.5
+n : 0
+y[n] : 1
+h : 0.1
+y': 2-(exp(-4*x))-(2*y)
+exact : exp(-2*x) * (exp(2*x) + ((1/2)*exp(-2*x)) - (1/2))
+ผลลัพธ์ คลาดเคลื่อนหลัก 0.0001
