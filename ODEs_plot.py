@@ -244,7 +244,7 @@ while check != 5:
 stop += h
 x = np.arange(start, stop, h)
 
-danger_word = ['exit', 'system', 'import', 'clear', 'lamda', 'eval']
+danger_word = ['exit', 'system', 'import', 'clear', 'lamda', 'eval', 'for', 'if', 'and', 'or', 'not']
 while True:
     prob = input("y' = ")
     if any(word in prob for word in danger_word):
