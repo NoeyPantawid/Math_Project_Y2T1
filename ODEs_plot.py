@@ -55,6 +55,7 @@ y' = exp(-2*(x**2))-(4*x*y)
 exact = x * exp(-2*x**2) - 4.3 * exp(-2*x**2)
 ============================================"""
 
+
 #!==================== 4 Method Functions ====================
 
 #Euler Method
@@ -188,6 +189,7 @@ def errorRungeF():
 
 
 #?==================== Input functions =================
+
 def start():
 
     global start, stop, f, yp, yx, x, h, prob_exact
@@ -303,13 +305,16 @@ def plot():
     plt.title("Solution")
     plt.show()
 
+
 #?==================== Create table =================
+
 def table():
     call_function()
     errorEuler()
     errorHuan()
     errorRunge()
     errorRungeF()
+
 
 #!==================== Main ====================
 
