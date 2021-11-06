@@ -44,6 +44,17 @@ log = np.log
 # y : list of value (y[n])
 # -------------
 
+example = """============================================
+!Example!
+Start = 0
+Stop = 2
+n = 0
+Y[n] = -4.3
+h = 0.2
+y' = exp(-2*(x**2))-(4*x*y)
+exact = x * exp(-2*x**2) - 4.3 * exp(-2*x**2)
+============================================"""
+
 #!==================== 4 Method Functions ====================
 
 #Euler Method
@@ -91,6 +102,7 @@ def odeRunge_kutta_fehlberg(f, yp, yx, x, h):
         y[n+1] = y[n] + ((16/135) * k1) + ((6656/12825) * k3) + ((28561/56430) * k4) + ((-9/50) * k5) + ((2/55) * k6)
 
     return y
+
 
 #?==================== Error functions and create table ====================
 
@@ -175,124 +187,133 @@ def errorRungeF():
     print('|_________|________________|___________________|__________________|__________________________|')
 
 
-#!==================== Main ====================
+#?==================== Input functions =================
+def start():
 
-print("""============================================
-!Example!
-Start = 0
-Stop = 2
-n = 0
-Y[n] = -4.3
-h = 0.2
-y' = exp(-2*(x**2))-(4*x*y)
-exact = x * exp(-2*x**2) - 4.3 * exp(-2*x**2)
-============================================""")
+    global start, stop, f, yp, yx, x, h, prob_exact
 
-check = 0
+    print(example)
 
-while check != 5:
+    check = 0
 
-    if check == 0:
-        start = input('Start = ')
-        try:
-            start = float(start)
-            check += 1
-        except:
-            print('Start point must be a number!')
-            continue
+    while check != 5:
 
-    if check == 1:
-        stop = input('Stop = ')
-        try:
-            stop = float(stop)
-            check += 1
-        except:
-            print('Stop point must be a number!')
-            continue
-
-    if check == 2:
-        yp = input("Enter Y[n]\nn = ")
-        try:
-            yp = int(yp)
-            check += 1
-        except:
-            print("n must be a integer!")
-            continue
-
-    if check == 3:
-        yx = input("Enter Y[n]\nY[n] = ")
-        try:
-            yx = float(yx)
-            check += 1
-        except:
-            print('Y[n] must be a number!')
-            continue
-
-    if check == 4:
-        h = input('h (step size) = ')
-        try:
-            h = float(h)
-            if h <= 0:
-                print('h must not be zero or negative number!')
-                continue
-            else:
+        if check == 0:
+            start = input('Start = ')
+            try:
+                start = float(start)
                 check += 1
-        except:
-            print('h must be a number!')
+            except:
+                print('Start point must be a number!')
+                continue
+
+        if check == 1:
+            stop = input('Stop = ')
+            try:
+                stop = float(stop)
+                check += 1
+            except:
+                print('Stop point must be a number!')
+                continue
+
+        if check == 2:
+            yp = input("Enter Y[n]\nn = ")
+            try:
+                yp = int(yp)
+                check += 1
+            except:
+                print("n must be a integer!")
+                continue
+
+        if check == 3:
+            yx = input("Enter Y[n]\nY[n] = ")
+            try:
+                yx = float(yx)
+                check += 1
+            except:
+                print('Y[n] must be a number!')
+                continue
+
+        if check == 4:
+            h = input('h (step size) = ')
+            try:
+                h = float(h)
+                if h <= 0:
+                    print('h must not be zero or negative number!')
+                    continue
+                else:
+                    check += 1
+            except:
+                print('h must be a number!')
+                continue
+
+    stop += h
+    x = np.arange(start, stop, h)
+
+    danger_word = ['exit', 'system', 'import', 'clear', 'lamda', 'eval', 'for', 'if', 'and', 'or', 'not']
+    while True:
+        prob = input("y' = ")
+        if any(word in prob for word in danger_word):
+            print('You can not use that!')
             continue
+        else:
+            break
 
-stop += h
-x = np.arange(start, stop, h)
-
-danger_word = ['exit', 'system', 'import', 'clear', 'lamda', 'eval', 'for', 'if', 'and', 'or', 'not']
-while True:
-    prob = input("y' = ")
-    if any(word in prob for word in danger_word):
-        print('You can not use that!')
-        continue
-    else:
-        break
-
-while True:
-    prob_exact = input("exact = ")
-    if any(word in prob_exact for word in danger_word):
-        print('You can not use that!')
-        continue
-    else:
-        break
-
-f = lambda x, y : eval(prob)
+    while True:
+        prob_exact = input("exact = ")
+        if any(word in prob_exact for word in danger_word):
+            print('You can not use that!')
+            continue
+        else:
+            break
+    
+    f = lambda x, y : eval(prob)
 
 
 #?==================== Call functions ====================
 
-#Euler Method
-y_euler = odeEuler(f, yp, yx, x, h)
+def call_function():
 
-#Improved Euler Method
-y_huan = odeHuan(f, yp, yx, x, h)
+    global y_euler, y_huan, y_runge, y_rungef, y_exact
 
-#Runge-Kutta Method
-y_runge = odeRunge_kutta(f, yp, yx, x, h)
+    #Euler Method
+    y_euler = odeEuler(f, yp, yx, x, h)
 
-#Runge-Kutta-Fehlberg Method
-y_rungef = odeRunge_kutta_fehlberg(f, yp, yx, x, h)
+    #Improved Euler Method
+    y_huan = odeHuan(f, yp, yx, x, h)
 
-#EXACT
-y_exact = eval(prob_exact)
+    #Runge-Kutta Method
+    y_runge = odeRunge_kutta(f, yp, yx, x, h)
 
-#Error
-errorEuler()
-errorHuan()
-errorRunge()
-errorRungeF()
+    #Runge-Kutta-Fehlberg Method
+    y_rungef = odeRunge_kutta_fehlberg(f, yp, yx, x, h)
+
+    #EXACT
+    y_exact = eval(prob_exact)
 
 
 #?==================== Plot graph ====================
 
-plt.plot(x,y_exact,'r.-', x,y_euler,'b-', x,y_huan,'g-', x,y_runge,'c-', x,y_rungef,'m-')
-plt.legend(['Exact','Euler','Improved Euler','Runge','Fehlberg'])
-#plt.axis([start,stop,round(yx)-1,1])
-plt.grid(True)
-plt.title("Solution")
-plt.show()
+def plot():
+    call_function()
+    plt.plot(x,y_exact,'r.-', x,y_euler,'b-', x,y_huan,'g-', x,y_runge,'c-', x,y_rungef,'m-')
+    plt.legend(['Exact','Euler','Improved Euler','Runge','Fehlberg'])
+    #plt.axis([start,stop,round(yx)-1,1])
+    plt.grid(True)
+    plt.title("Solution")
+    plt.show()
+
+#?==================== Create table =================
+def table():
+    call_function()
+    errorEuler()
+    errorHuan()
+    errorRunge()
+    errorRungeF()
+
+#!==================== Main ====================
+
+if __name__ == '__main__':
+    start()
+    table()
+    plot()
