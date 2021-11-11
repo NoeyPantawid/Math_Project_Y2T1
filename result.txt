@@ -94,4 +94,7 @@ h : 0.1
 y': 2-(exp(-4*x))-(2*y)
 exact : exp(-2*x) * (exp(2*x) + ((1/2)*exp(-2*x)) - (1/2))
 =Result=
-I'm too lazy to check this right now so maybe another day
+Euler - error 0.0001 I think it's acceptable so count it as accurate
+Improved-Euler - error 0.0001 too acceptable
+Runge – kutta - accurate!
+Runge - Kutta Fehlberg - accurate!!
