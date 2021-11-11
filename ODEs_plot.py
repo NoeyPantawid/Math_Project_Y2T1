@@ -17,7 +17,9 @@ arcsin = np.arcsin
 arccos = np.arccos
 arctan = np.arctan
 ln = np.log
-log = np.log
+log = np.log10
+log10 = np.log10
+log2 = np.log2
 
 
 #?==================== Doc ====================
