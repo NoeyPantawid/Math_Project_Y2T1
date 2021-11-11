@@ -90,7 +90,7 @@ def odeRunge_kutta(f, yp, yx, x, h):
 
     return y
 
-#Runge-Kutta-Fehlberg Method
+#Runge-Kutta-Fehlberg Method (4th order)
 def odeRunge_kutta_fehlberg(f, yp, yx, x, h):
     y = np.zeros(len(x))
     y[yp] = yx
@@ -300,7 +300,7 @@ def call_function():
 def plot():
     call_function()
     plt.plot(x,y_exact,'r.-', x,y_euler,'b-', x,y_huan,'g-', x,y_runge,'c-', x,y_rungef,'m-')
-    plt.legend(['Exact','Euler','Improved Euler','Runge','Fehlberg'])
+    plt.legend(['Exact Solution','Euler','Improved-Euler','Runge-Kutta','Runge-Kutta-Fehlberg 4th Order'])
     #plt.axis([start,stop,round(yx)-1,1])
     plt.grid(True)
     plt.title("Solution")
