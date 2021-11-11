@@ -209,7 +209,7 @@ def start():
                 print('Start point must be a number!')
                 continue
 
-        if check == 1:
+        elif check == 1:
             stop = input('Stop = ')
             try:
                 stop = float(stop)
@@ -218,7 +218,7 @@ def start():
                 print('Stop point must be a number!')
                 continue
 
-        if check == 2:
+        elif check == 2:
             yp = input("Enter Y[n]\nn = ")
             try:
                 yp = int(yp)
@@ -227,7 +227,7 @@ def start():
                 print("n must be a integer!")
                 continue
 
-        if check == 3:
+        elif check == 3:
             yx = input("Enter Y[n]\nY[n] = ")
             try:
                 yx = float(yx)
@@ -236,7 +236,7 @@ def start():
                 print('Y[n] must be a number!')
                 continue
 
-        if check == 4:
+        elif check == 4:
             h = input('h (step size) = ')
             try:
                 h = float(h)
