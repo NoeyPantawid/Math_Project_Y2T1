@@ -280,7 +280,7 @@ def start():
             four_check = 'Y'
             break
         elif zero_check == 'N':
-            sure_list = []
+            sure_list = ['- Exact']
             print('--------------------------------')
             one_check = input("Do you want Euler method solution?\n(Y/N) : ")
             if one_check == 'Y':
