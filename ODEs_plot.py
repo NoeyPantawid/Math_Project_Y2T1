@@ -135,7 +135,7 @@ def errorHuan():
     Frequency2 = f'{(stop-start)/h:.2f}'
     print('_____________________________________________________________________________________________')
     print(f'|Improved Euler Method | Frequency = {Frequency2:<56}|')
-    print('|___________________________________________________________________________________________|')
+    print('|____________________________________________________________________________________________|')
     print(f'|    n    |      x[n]      |       y[n]        |      exact       |          error           |')
     print('|_________|________________|___________________|__________________|__________________________|')
     for i, j in diff_huan:
@@ -193,7 +193,7 @@ def errorRungeF():
 
 def start():
 
-    global start, stop, f, yp, yx, x, h, prob_exact
+    global start, stop, f, yp, yx, x, h, prob_exact, zero_check, one_check, two_check, three_check, four_check
 
     print(example)
 
@@ -270,6 +270,46 @@ def start():
         else:
             break
     
+    print('--------------------------------')
+    while True:
+        zero_check = input("Do you want all method solution?\n(Y/N) : ")
+        if zero_check == 'Y':
+            one_check = 'Y'
+            two_check = 'Y'
+            three_check = 'Y'
+            four_check = 'Y'
+            break
+        elif zero_check == 'N':
+            sure_list = []
+            print('--------------------------------')
+            one_check = input("Do you want Euler method solution?\n(Y/N) : ")
+            if one_check == 'Y':
+                sure_list.append('- Euler method')
+            two_check = input("Do you want Improved-Euler method solution?\n(Y/N) : ")
+            if two_check == 'Y':
+                sure_list.append('- Improved-Euler method')
+            three_check = input("Do you want Runge-Kutta method solution?\n(Y/N) : ")
+            if three_check == 'Y':
+                sure_list.append('- Runge-Kutta method')
+            four_check = input("Do you want Runge-Kutta-Fehlberg method (4th order) solution?\n(Y/N) : ")
+            if four_check == 'Y':
+                sure_list.append('- Runge-Kutta-Fehlberg 4th order method')
+            print('--------------------------------')
+
+            print("You prefer these method solution?\n")
+            print(*sure_list, sep = '\n')
+            r_u_sure = input("\n(Y/N) : ")
+            if r_u_sure == 'Y':
+                break
+            else:
+                print('--------------------------------')
+                continue
+        else:
+            print('!Attention!')
+            print('Invalid input please enter again')
+            continue
+
+
     f = lambda x, y : eval(prob)
 
 
@@ -280,16 +320,20 @@ def call_function():
     global y_euler, y_huan, y_runge, y_rungef, y_exact
 
     #Euler Method
-    y_euler = odeEuler(f, yp, yx, x, h)
+    if one_check == 'Y':
+        y_euler = odeEuler(f, yp, yx, x, h)
 
     #Improved Euler Method
-    y_huan = odeHuan(f, yp, yx, x, h)
+    if two_check == 'Y':
+        y_huan = odeHuan(f, yp, yx, x, h)
 
     #Runge-Kutta Method
-    y_runge = odeRunge_kutta(f, yp, yx, x, h)
+    if three_check == 'Y':
+        y_runge = odeRunge_kutta(f, yp, yx, x, h)
 
     #Runge-Kutta-Fehlberg Method
-    y_rungef = odeRunge_kutta_fehlberg(f, yp, yx, x, h)
+    if four_check == 'Y':
+        y_rungef = odeRunge_kutta_fehlberg(f, yp, yx, x, h)
 
     #EXACT
     y_exact = eval(prob_exact)
@@ -299,9 +343,24 @@ def call_function():
 
 def plot():
     call_function()
-    plt.plot(x,y_exact,'r.-', x,y_euler,'b-', x,y_huan,'g-', x,y_runge,'c-', x,y_rungef,'m-')
-    plt.legend(['Exact Solution','Euler','Improved-Euler','Runge-Kutta','Runge-Kutta-Fehlberg 4th Order'])
-    #plt.axis([start,stop,round(yx)-1,1])
+    
+    plt.plot(x,y_exact,'r.-')
+    legend_holder = ['Exact Solution']
+
+    if one_check == 'Y':
+        plt.plot(x,y_euler,'b-')
+        legend_holder.append('Euler')
+    if two_check == 'Y':
+        plt.plot(x,y_huan,'g-')
+        legend_holder.append('Improved-Euler')
+    if three_check == 'Y':
+        plt.plot(x,y_runge,'c-')
+        legend_holder.append('Runge-Kutta')
+    if four_check == 'Y':
+        plt.plot(x,y_rungef,'m-')
+        legend_holder.append('Runge-Kutta-Fehlberg 4th Order')
+
+    plt.legend(legend_holder)
     plt.grid(True)
     plt.title("Solution")
     plt.show()
@@ -311,10 +370,14 @@ def plot():
 
 def table():
     call_function()
-    errorEuler()
-    errorHuan()
-    errorRunge()
-    errorRungeF()
+    if one_check == 'Y':
+        errorEuler()
+    if two_check == 'Y':
+        errorHuan()
+    if three_check == 'Y':
+        errorRunge()
+    if four_check == 'Y':
+        errorRungeF()
 
 
 #!==================== Main ====================
