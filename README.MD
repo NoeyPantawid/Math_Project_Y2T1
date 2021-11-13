@@ -6,6 +6,6 @@
 * numpy
 * matplotlib
 
-''' bash
+``` bash
 $ pip install -r requirements.txt
-'''
+```
