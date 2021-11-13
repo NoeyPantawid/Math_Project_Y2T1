@@ -1,11 +1,14 @@
-# Setup
+# Ordinary differential equation
 
-## Install package
-### This package includes
+
+
+## Installation
+
+This program requires numpy and matplotlib.
 
 * numpy
 * matplotlib
 
 ``` bash
-$ pip install -r requirements.txt
+pip install -r requirements.txt
 ```
