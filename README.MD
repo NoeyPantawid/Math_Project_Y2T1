@@ -22,4 +22,4 @@ pip install -r requirements.txt
 
 or
 
-<img src = "https://github.com/NoeyPantawid/ODEs_plot/blob/main/HowToQR.png" height="50%" width="50%">
+<img src = "https://github.com/NoeyPantawid/ODEs_plot/blob/main/HowToQR.png" height="25%" width="25%">
