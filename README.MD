@@ -22,4 +22,4 @@ pip install -r requirements.txt
 
 or
 
-![YouTube Link](https://github.com/NoeyPantawid/ODEs_plot/blob/main/HowToQR.png)
+![YouTube Link](https://github.com/NoeyPantawid/ODEs_plot/blob/main/HowToQR.png){:height="50%" width="50%"}
