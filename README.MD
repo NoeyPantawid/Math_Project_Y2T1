@@ -18,9 +18,8 @@ pip install -r requirements.txt
 ```
 
 ## How to use this program
-Click here to watch how to use this program
 [Click here to watch how to use this program](https://youtu.be/1i7D8VmizX0)
 
 or
 
-![YouTube Link](https://github.com/NoeyPantawid/ODEs_plot/HowToQR.png)
+![YouTube Link](https://github.com/NoeyPantawid/ODEs_plot/blob/main/HowToQR.png)
