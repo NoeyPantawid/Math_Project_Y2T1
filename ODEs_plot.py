@@ -310,7 +310,7 @@ def start():
             continue
 
 
-    f = lambda x, y : eval(prob, {"__builtins__":None})
+    f = lambda x, y : eval(prob)
 
 
 #?==================== Call functions ====================
@@ -336,7 +336,7 @@ def call_function():
         y_rungef = odeRunge_kutta_fehlberg(f, yp, yx, x, h)
 
     #EXACT
-    y_exact = eval(prob_exact, {"__builtins__":None})
+    y_exact = eval(prob_exact)
 
 
 #?==================== Plot graph ====================
