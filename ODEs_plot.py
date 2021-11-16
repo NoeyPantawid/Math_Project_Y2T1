@@ -108,84 +108,38 @@ def odeRunge_kutta_fehlberg(f, yp, yx, x, h):
 
 #?==================== Error functions and create table ====================
 
-def errorEuler():
-    diff_euler = zip(y_euler, y_exact)
-    n1 = 0
-    s1 = yp
-    Frequency1 = f'{(stop-start)/h:.2f}'
-    print('______________________________________________________________________________________________')
-    print(f'|Euler Method | Frequency = {Frequency1:<65}|')
-    print('|____________________________________________________________________________________________|')
-    print(f'|    n    |      x[n]      |       y[n]        |      exact       |          error           |')
-    print('|_________|________________|___________________|__________________|__________________________|')
-    for i, j in diff_euler:
-        s1_f = f'{s1:.2f}'
-        i1_f = f'{i:.4f}'
-        j1_f = f'{j:.4f}'
-        er1_f = f'{abs(i-j):.10f}'
-        print(f'| n = {n1:^3} | x[{n1:^3}] = {s1_f:^5} | y[{n1:^3}] = {i1_f:>8} | exact = {j1_f:>8} | error = {er1_f:<16} |')
-        n1 += 1
-        s1 += h
-    print('|_________|________________|___________________|__________________|__________________________|')
+def errortable(method, y, y_exact, yp):
+    diff = zip(y, y_exact)
+    n = 0
+    s = yp
+    Frequency = f'{(stop-start)/h:.2f}'
 
-def errorHuan():
-    diff_huan = zip(y_huan, y_exact)
-    n2 = 0
-    s2 = yp
-    Frequency2 = f'{(stop-start)/h:.2f}'
-    print('_____________________________________________________________________________________________')
-    print(f'|Improved Euler Method | Frequency = {Frequency2:<56}|')
-    print('|____________________________________________________________________________________________|')
-    print(f'|    n    |      x[n]      |       y[n]        |      exact       |          error           |')
-    print('|_________|________________|___________________|__________________|__________________________|')
-    for i, j in diff_huan:
-        s2_f = f'{s2:.2f}'
-        i2_f = f'{i:.4f}'
-        j2_f = f'{j:.4f}'
-        er2_f = f'{abs(i-j):.10f}'
-        print(f'| n = {n2:^3} | x[{n2:^3}] = {s2_f:^5} | y[{n2:^3}] = {i2_f:>8} | exact = {j2_f:>8} | error = {er2_f:<16} |')
-        n2 += 1
-        s2 += h
-    print('|_________|________________|___________________|__________________|__________________________|')
+    if method == 'y_euler':
+        method_name = 'Euler Method '
+        Frequency = f'{Frequency:<65}'
+    elif method == 'y_huan':
+        method_name = 'Improved Euler Method '
+        Frequency = f'{Frequency:<56}'
+    elif method == 'y_runge':
+        method_name = 'Runge-Kutta Method '
+        Frequency = f'{Frequency:<59}'
+    elif method == 'y_rungef':
+        Frequency = f'{Frequency:<50}'
+        method_name = 'Runge-Kutta-Fehlberg Method '
 
-def errorRunge():
-    diff_Runge = zip(y_runge, y_exact)
-    n3 = 0
-    s3 = yp
-    Frequency3 = f'{(stop-start)/h:.2f}'
     print('______________________________________________________________________________________________')
-    print(f'|Runge-Kutta Method | Frequency = {Frequency3:<59}|')
+    print(f'|{method_name}| Frequency = {Frequency}|')
     print('|____________________________________________________________________________________________|')
     print(f'|    n    |      x[n]      |       y[n]        |      exact       |          error           |')
     print('|_________|________________|___________________|__________________|__________________________|')
-    for i, j in diff_Runge:
-        s3_f = f'{s3:.2f}'
-        i3_f = f'{i:.4f}'
-        j3_f = f'{j:.4f}'
-        er3_f = f'{abs(i-j):.10f}'
-        print(f'| n = {n3:^3} | x[{n3:^3}] = {s3_f:^5} | y[{n3:^3}] = {i3_f:>8} | exact = {j3_f:>8} | error = {er3_f:<16} |')
-        n3 += 1
-        s3 += h
-    print('|_________|________________|___________________|__________________|__________________________|')
-
-def errorRungeF():
-    diff_RungeF = zip(y_rungef, y_exact)
-    n4 = 0
-    s4 = yp
-    Frequency4 = f'{(stop-start)/h:.2f}'
-    print('______________________________________________________________________________________________')
-    print(f'|Runge-Kutta-Fehlberg Method | Frequency = {Frequency4:<50}|')
-    print('|____________________________________________________________________________________________|')
-    print(f'|    n    |      x[n]      |       y[n]        |      exact       |          error           |')
-    print('|_________|________________|___________________|__________________|__________________________|')
-    for i, j in diff_RungeF:
-        s4_f = f'{s4:.2f}'
-        i4_f = f'{i:.4f}'
-        j4_f = f'{j:.4f}'
-        er4_f = f'{abs(i-j):.10f}'
-        print(f'| n = {n4:^3} | x[{n4:^3}] = {s4_f:^5} | y[{n4:^3}] = {i4_f:>8} | exact = {j4_f:>8} | error = {er4_f:<16} |')
-        n4 += 1
-        s4 += h
+    for i, j in diff:
+        s_f = f'{s:.2f}'
+        i_f = f'{i:.4f}'
+        j_f = f'{j:.4f}'
+        er_f = f'{abs(i-j):.10f}'
+        print(f'| n = {n:^3} | x[{n:^3}] = {s_f:^5} | y[{n:^3}] = {i_f:>8} | exact = {j_f:>8} | error = {er_f:<16} |')
+        n += 1
+        s += h
     print('|_________|________________|___________________|__________________|__________________________|')
 
 
@@ -310,7 +264,7 @@ def start():
             continue
 
 
-    f = lambda x, y : eval(prob, {"__builtins__":None})
+    f = lambda x, y : eval(prob)
 
 
 #?==================== Call functions ====================
@@ -336,7 +290,7 @@ def call_function():
         y_rungef = odeRunge_kutta_fehlberg(f, yp, yx, x, h)
 
     #EXACT
-    y_exact = eval(prob_exact, {"__builtins__":None})
+    y_exact = eval(prob_exact)
 
 
 #?==================== Plot graph ====================
@@ -371,13 +325,13 @@ def plot():
 def table():
     call_function()
     if one_check == 'Y':
-        errorEuler()
+        errortable('y_euler', y_euler, y_exact, yp)
     if two_check == 'Y':
-        errorHuan()
+        errortable('y_huan', y_huan, y_exact, yp)
     if three_check == 'Y':
-        errorRunge()
+        errortable('y_runge', y_runge, y_exact, yp)
     if four_check == 'Y':
-        errorRungeF()
+        errortable('y_rungef', y_rungef, y_exact, yp)
 
 
 #!==================== Main ====================
