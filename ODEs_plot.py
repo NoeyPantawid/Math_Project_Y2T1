@@ -2,6 +2,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+import builtins
 
 
 #?==================== abbreviate ====================
@@ -207,10 +208,9 @@ def start():
     stop += h
     x = np.arange(start, stop, h)
 
-    danger_word = ['exit', 'system', 'import', 'clear', 'lamda', 'eval', 'for', 'if', 'and', 'or', 'not']
     while True:
         prob = input("y' = ")
-        if any(word in prob for word in danger_word):
+        if any(word in prob for word in dir(builtins)):
             print('You can not use that!')
             continue
         else:
@@ -218,7 +218,7 @@ def start():
 
     while True:
         prob_exact = input("exact = ")
-        if any(word in prob_exact for word in danger_word):
+        if any(word in prob_exact for word in dir(builtins)):
             print('You can not use that!')
             continue
         else:
