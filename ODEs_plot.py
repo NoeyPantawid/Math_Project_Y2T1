@@ -227,33 +227,33 @@ def start():
     print('--------------------------------')
     while True:
         zero_check = input("Do you want all method solution?\n(Y/N) : ")
-        if zero_check == 'Y':
+        if zero_check == 'Y' or zero_check == 'y':
             one_check = 'Y'
             two_check = 'Y'
             three_check = 'Y'
             four_check = 'Y'
             break
-        elif zero_check == 'N':
+        elif zero_check == 'N' or zero_check == 'n':
             sure_list = ['- Exact']
             print('--------------------------------')
             one_check = input("Do you want Euler method solution?\n(Y/N) : ")
-            if one_check == 'Y':
+            if one_check == 'Y' or one_check == 'y':
                 sure_list.append('- Euler method')
             two_check = input("Do you want Improved-Euler method solution?\n(Y/N) : ")
-            if two_check == 'Y':
+            if two_check == 'Y' or two_check == 'y':
                 sure_list.append('- Improved-Euler method')
             three_check = input("Do you want Runge-Kutta method solution?\n(Y/N) : ")
-            if three_check == 'Y':
+            if three_check == 'Y' or three_check == 'y':
                 sure_list.append('- Runge-Kutta method')
             four_check = input("Do you want Runge-Kutta-Fehlberg method (4th order) solution?\n(Y/N) : ")
-            if four_check == 'Y':
+            if four_check == 'Y' or four_check == 'y':
                 sure_list.append('- Runge-Kutta-Fehlberg 4th order method')
             print('--------------------------------')
 
             print("You prefer these method solution?\n")
             print(*sure_list, sep = '\n')
             r_u_sure = input("\n(Y/N) : ")
-            if r_u_sure == 'Y':
+            if r_u_sure == 'Y' or r_u_sure == 'y':
                 break
             else:
                 print('--------------------------------')
@@ -274,19 +274,19 @@ def call_function():
     global y_euler, y_huan, y_runge, y_rungef, y_exact
 
     #Euler Method
-    if one_check == 'Y':
+    if one_check == 'Y' or one_check == 'y':
         y_euler = odeEuler(f, yp, yx, x, h)
 
     #Improved Euler Method
-    if two_check == 'Y':
+    if two_check == 'Y' or two_check == 'y':
         y_huan = odeHuan(f, yp, yx, x, h)
 
     #Runge-Kutta Method
-    if three_check == 'Y':
+    if three_check == 'Y' or three_check == 'y':
         y_runge = odeRunge_kutta(f, yp, yx, x, h)
 
     #Runge-Kutta-Fehlberg Method
-    if four_check == 'Y':
+    if four_check == 'Y' or four_check == 'y':
         y_rungef = odeRunge_kutta_fehlberg(f, yp, yx, x, h)
 
     #EXACT
@@ -301,16 +301,16 @@ def plot():
     plt.plot(x,y_exact,'r.-')
     legend_holder = ['Exact Solution']
 
-    if one_check == 'Y':
+    if one_check == 'Y' or one_check == 'y':
         plt.plot(x,y_euler,'b-')
         legend_holder.append('Euler')
-    if two_check == 'Y':
+    if two_check == 'Y' or two_check == 'y':
         plt.plot(x,y_huan,'g-')
         legend_holder.append('Improved-Euler')
-    if three_check == 'Y':
+    if three_check == 'Y' or three_check == 'y':
         plt.plot(x,y_runge,'c-')
         legend_holder.append('Runge-Kutta')
-    if four_check == 'Y':
+    if four_check == 'Y' or four_check == 'y':
         plt.plot(x,y_rungef,'m-')
         legend_holder.append('Runge-Kutta-Fehlberg 4th Order')
 
@@ -324,13 +324,13 @@ def plot():
 
 def table():
     call_function()
-    if one_check == 'Y':
+    if one_check == 'Y' or one_check == 'y':
         errortable('y_euler', y_euler, y_exact, yp)
-    if two_check == 'Y':
+    if two_check == 'Y' or two_check == 'y':
         errortable('y_huan', y_huan, y_exact, yp)
-    if three_check == 'Y':
+    if three_check == 'Y' or three_check == 'y':
         errortable('y_runge', y_runge, y_exact, yp)
-    if four_check == 'Y':
+    if four_check == 'Y' or four_check == 'y':
         errortable('y_rungef', y_rungef, y_exact, yp)
 
 
