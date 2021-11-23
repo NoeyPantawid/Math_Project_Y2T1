@@ -92,7 +92,21 @@ def odeRunge_kutta(f, yp, yx, x, h):
     return y
 
 #Runge-Kutta-Fehlberg Method (4th order)
-def odeRunge_kutta_fehlberg(f, yp, yx, x, h):
+def odeRunge_kutta_fehlberg_fourth(f, yp, yx, x, h):
+    y = np.zeros(len(x))
+    y[yp] = yx
+    for n in range(0,len(x)-1):
+        k1 = h * f(x[n], y[n])
+        k2 = h * f(x[n] + ((1/4) * h), y[n] + (1/4) * k1)
+        k3 = h * f(x[n] + ((3/8) * h), y[n] + ((3/32) * k1) + ((9/32) * k2))
+        k4 = h * f(x[n] + ((12/13) * h), y[n] + ((1932/2197) * k1) - ((7200/2197) * k2) + ((7296/2197) * k3))
+        k5 = h * f(x[n] + h, y[n] + ((439/216) * k1) - (8 * k2) + ((3680/513) * k3) - ((845/4104) * k4))
+        y[n+1] = y[n] + ((25/216) * k1) + ((1408/2565) * k3) + ((2197/4104) * k4) + ((-1/5) * k5)
+
+    return y
+
+#Runge-Kutta-Fehlberg Method (5th order)
+def odeRunge_kutta_fehlberg_fifth(f, yp, yx, x, h):
     y = np.zeros(len(x))
     y[yp] = yx
     for n in range(0,len(x)-1):
@@ -103,7 +117,7 @@ def odeRunge_kutta_fehlberg(f, yp, yx, x, h):
         k5 = h * f(x[n] + h, y[n] + ((439/216) * k1) - (8 * k2) + ((3680/513) * k3) - ((845/4104) * k4))
         k6 = h * f(x[n] + ((1/2) * h), y[n] - ((8/27) * k1) + (2 * k2) - ((3544/2565) * k3) + ((1859/4104) * k4) - ((11/40) * k5))
         y[n+1] = y[n] + ((16/135) * k1) + ((6656/12825) * k3) + ((28561/56430) * k4) + ((-9/50) * k5) + ((2/55) * k6)
-
+    
     return y
 
 
@@ -124,9 +138,12 @@ def errortable(method, y, y_exact, yp):
     elif method == 'y_runge':
         method_name = 'Runge-Kutta Method '
         Frequency = f'{Frequency:<59}'
-    elif method == 'y_rungef':
-        Frequency = f'{Frequency:<50}'
-        method_name = 'Runge-Kutta-Fehlberg Method '
+    elif method == 'y_rungef_fourth':
+        Frequency = f'{Frequency:<39}'
+        method_name = 'Runge-Kutta-Fehlberg Method (4th order)'
+    elif method == 'y_rungef_fifth':
+        Frequency = f'{Frequency:<39}'
+        method_name = 'Runge-Kutta-Fehlberg Method (5th order)'
 
     print('______________________________________________________________________________________________')
     print(f'|{method_name}| Frequency = {Frequency}|')
@@ -148,7 +165,7 @@ def errortable(method, y, y_exact, yp):
 
 def start():
 
-    global start, stop, f, yp, yx, x, h, prob_exact, zero_check, one_check, two_check, three_check, four_check
+    global start, stop, f, yp, yx, x, h, prob_exact, zero_check, one_check, two_check, three_check, four_check, five_check
 
     print(example)
 
@@ -232,6 +249,7 @@ def start():
             two_check = 'Y'
             three_check = 'Y'
             four_check = 'Y'
+            five_check = 'Y'
             break
         elif zero_check == 'N' or zero_check == 'n':
             sure_list = ['- Exact']
@@ -248,6 +266,9 @@ def start():
             four_check = input("Do you want Runge-Kutta-Fehlberg method (4th order) solution?\n(Y/N) : ")
             if four_check == 'Y' or four_check == 'y':
                 sure_list.append('- Runge-Kutta-Fehlberg 4th order method')
+            five_check = input("Do you want Runge-Kutta-Fehlberg method (5th order) solution?\n(Y/N) :")
+            if five_check == 'Y' or five_check == 'y':
+                sure_list.append('- Runge-Kutta-Fehlberg 5th order method')
             print('--------------------------------')
 
             print("You prefer these method solution?\n")
@@ -271,7 +292,7 @@ def start():
 
 def call_function():
 
-    global y_euler, y_huan, y_runge, y_rungef, y_exact
+    global y_euler, y_huan, y_runge, y_rungef_fourth, y_rungef_fifth, y_exact
 
     #Euler Method
     if one_check == 'Y' or one_check == 'y':
@@ -285,9 +306,13 @@ def call_function():
     if three_check == 'Y' or three_check == 'y':
         y_runge = odeRunge_kutta(f, yp, yx, x, h)
 
-    #Runge-Kutta-Fehlberg Method
+    #Runge-Kutta-Fehlberg Method 4th order
     if four_check == 'Y' or four_check == 'y':
-        y_rungef = odeRunge_kutta_fehlberg(f, yp, yx, x, h)
+        y_rungef_fourth = odeRunge_kutta_fehlberg_fourth(f, yp, yx, x, h)
+
+    #Runge-Kutta-Fehlberg Method 5th order    
+    if five_check == 'Y' or five_check == 'y':
+        y_rungef_fifth = odeRunge_kutta_fehlberg_fifth(f, yp, yx, x, h)
 
     #EXACT
     y_exact = eval(prob_exact)
@@ -311,8 +336,11 @@ def plot():
         plt.plot(x,y_runge,'c-')
         legend_holder.append('Runge-Kutta')
     if four_check == 'Y' or four_check == 'y':
-        plt.plot(x,y_rungef,'m-')
+        plt.plot(x,y_rungef_fourth,'m-')
         legend_holder.append('Runge-Kutta-Fehlberg 4th Order')
+    if five_check == 'Y' or five_check == 'y':
+        plt.plot(x,y_rungef_fifth,'y-')
+        legend_holder.append('Runge-Kutta-Fehlberg 5th Order')
 
     plt.legend(legend_holder)
     plt.grid(True)
@@ -331,7 +359,9 @@ def table():
     if three_check == 'Y' or three_check == 'y':
         errortable('y_runge', y_runge, y_exact, yp)
     if four_check == 'Y' or four_check == 'y':
-        errortable('y_rungef', y_rungef, y_exact, yp)
+        errortable('y_rungef_fourth', y_rungef_fourth, y_exact, yp)
+    if five_check == 'Y' or five_check == 'y':
+        errortable('y_rungef_fifth', y_rungef_fifth, y_exact, yp)
 
 
 #!==================== Main ====================
