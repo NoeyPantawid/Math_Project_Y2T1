@@ -4,7 +4,8 @@ This program used to find error value and show a comparative graph between exact
 - Euler Method
 - Improved Euler Method
 - Runge-Kutta Method
-- Runge-Kutta-Fehlberg Method
+- 4th order Runge-Kutta-Fehlberg Method
+- 5th order Runge-Kutta-Fehlberg Method
 
 ## Installation
 
