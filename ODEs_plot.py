@@ -266,7 +266,7 @@ def start():
             four_check = input("Do you want Runge-Kutta-Fehlberg method (4th order) solution?\n(Y/N) : ")
             if four_check == 'Y' or four_check == 'y':
                 sure_list.append('- Runge-Kutta-Fehlberg 4th order method')
-            five_check = input("Do you want Runge-Kutta-Fehlberg method (5th order) solution?\n(Y/N) :")
+            five_check = input("Do you want Runge-Kutta-Fehlberg method (5th order) solution?\n(Y/N) : ")
             if five_check == 'Y' or five_check == 'y':
                 sure_list.append('- Runge-Kutta-Fehlberg 5th order method')
             print('--------------------------------')
